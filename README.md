@@ -24,3 +24,4 @@ Para rodar a imagem, execute o script `./run_docker.sh`. A pasta **src** desse r
 - [Repositório do epiceric/gcc-arm](https://github.com/EpicEric/gcc-arm)
 - [Site da disciplina](https://www2.pcs.usp.br/~jkinoshi/2022/labmicro-22sem.html)
 - [Basics on ARM Processor](http://linux-kernel-lab.blogspot.com/2018/04/basics-on-arm-processor.html)
+- [ARM Instruction Reference](https://developer.arm.com/documentation/dui0068/b/ARM-Instruction-Reference?lang=en)
