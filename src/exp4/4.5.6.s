@@ -2,7 +2,7 @@
 .global main
 
 main:
-    MOV r1, #20 @ n
+    MOV r1, #22 @ n
     MOV r3, #2 @ x
     MOV r4, #0 @ f(x-2)
     MOV r5, #1 @ f(x-1)
@@ -13,7 +13,7 @@ main:
 
 fibo_check:
     CMP r3, r1
-    BLT fibo_loop
+    BLE fibo_loop
     MOV pc, lr
 
 fibo_loop:
