@@ -26,9 +26,7 @@ bubble_loop_1:
         CMP r3, r2
         BGE bubble_loop_2_done
         
-        BL check_next
-        CMP r6, #0
-        BLNE swap_next
+        BL check_and_swap
 
         B bubble_loop_2
 
@@ -41,31 +39,19 @@ bubble_loop_1_done:
     LDMFD sp!, {r1, r2, r3, r4, r5, lr} @ Recover registers on stack
     MOV pc, lr  @ End function
 
-@ check_next(r5): r6
+@ check_next(r5):
 @   r5: address to check with next position
-@   r6: 1 if should swap
-check_next:
-    STMFD sp!, {r1, r2, lr} @ Store in stack registers
-
-    LDMIA r5, {r1, r2}
-    CMP r1, r2
-    MOVGT r6, #1
-    MOVLE r6, #0
-
-    LDMFD sp!, {r1, r2, lr}
-    MOV pc, lr
-
-@ swap_next(r5)
-@   r5: address to swap with next position
-swap_next:
+check_and_swap:
     STMFD sp!, {r1, r2, r3, lr} @ Store in stack registers
 
     LDMIA r5, {r1, r2}
+    CMP r1, r2
+    BLE check_and_swap_end
     MOV r3, r1
     MOV r1, r2
     MOV r2, r3
     STMIA r5, {r1, r2}
-
+check_and_swap_end:
     LDMFD sp!, {r1, r2, r3, lr}
     MOV pc, lr
 
@@ -77,7 +63,4 @@ tamanho:
     .word 12
 
 dados:
-    .word 4,7,2,6,1,9,8,15,5,58,12,4
-
-sort_stack:
-    .data 100
+    .word -4,57,2,16,1,98,8,15,5,58,12,4
