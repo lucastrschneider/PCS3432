@@ -13,31 +13,36 @@ main:
     MOV r2, r2, LSR #1
 
     BL magicSquare
+    ADR r3, ehmagico
+    STR r9, [r3]
     B fim
 
 magicSquare:
     STMFD sp!, {r0, r1, r2, lr} @ Store in stack registers
     
-    MOV r9, #1
+    MOVS r9, #1
 
-    BL check_rows
-    AND r9, r9, r10
+    BLNE check_hash
+    ANDS r9, r9, r10
 
-    BL check_columns
-    AND r9, r9, r10
+    BLNE check_rows
+    ANDS r9, r9, r10
 
-    BL check_main_diagonal
-    AND r9, r9, r10
+    BLNE check_columns
+    ANDS r9, r9, r10
+
+    BLNE check_main_diagonal
+    ANDS r9, r9, r10
     
-    BL check_second_diagonal
-    AND r9, r9, r10
+    BLNE check_second_diagonal
+    ANDS r9, r9, r10
     
     LDMFD sp!, {r0, r1, r2, lr} @ Recover registers on stack
     MOV pc, lr
 
 @ rows check? r10 = 1
 check_rows:
-    STMFD sp!, {r0, r1, r2}
+    STMFD sp!, {r0, r1, r2, r10}
     MOV r6, r0 
 
     rows_loop:
@@ -69,12 +74,12 @@ check_rows:
         B rows_loop
     
     rows_loop_end:
-        LDMFD sp!, {r0, r1, r2}
+        LDMFD sp!, {r0, r1, r2, r10}
         MOV pc, lr
 
 @ columns check? r10 = 1
 check_columns:
-    STMFD sp!, {r0, r1, r2}
+    STMFD sp!, {r0, r1, r2, r10}
 
     MOV r3, #0 @ contador loop principal
     columns_loop:
@@ -103,12 +108,12 @@ check_columns:
         ADD r3, r3, #1
         B columns_loop
     columns_loop_end:
-        LDMFD sp!, {r0, r1, r2}
+        LDMFD sp!, {r0, r1, r2, r10}
         MOV pc, lr
 
 @ main diagonals check? r0 = 1
 check_main_diagonal:
-    STMFD sp!, {r0, r1, r2}
+    STMFD sp!, {r0, r1, r2, r10}
 
     MOV r3, #0 @ i = 0
     MOV r4, r1 @ endereco de a[i, i]
@@ -134,12 +139,12 @@ check_main_diagonal:
         MOVEQ r10, #1
         
     check_main_diagonal_end:
-        LDMFD sp!, {r0, r1, r2}
+        LDMFD sp!, {r0, r1, r2, r10}
         MOV pc, lr
 
 @ second diagonals check? r0 = 1
 check_second_diagonal:
-    STMFD sp!, {r0, r1, r2}
+    STMFD sp!, {r0, r1, r2, r10}
 
     ADD r5, r1, r0, LSL #2
     SUB r5, r5, #4
@@ -165,14 +170,55 @@ check_second_diagonal:
         MOVNE r10, #0
         MOVEQ r10, #1
         
-    LDMFD sp!, {r0, r1, r2}
+    LDMFD sp!, {r0, r1, r2, r10}
     MOV pc, lr
+
+check_hash:
+    STMFD sp!, {r0, r1, r2, r10}
+    
+    MOV r9, #1 @ saida
+    MOV r3, #0 @ i = 0
+    ADR r5, hash
+    MUL r7, r0, r0
+
+    hash_loop:
+        CMP r3, r0
+        BGE hash_loop_end
+    
+        LDR r4, [r1, r3, LSL #2]
+
+        CMP r4, r7
+        MOVGT r9, #0
+        BGT hash_loop_end
+
+        CMP r4, #0
+        MOVLE r9, #0
+        BLE hash_loop_end
+
+        SUB r4, r4, #1
+        LDR r10, [r5, r4, LSL #2]
+
+        CMP r10, #1
+        MOVEQ r9, #0
+        BEQ hash_loop_end
+        
+        STR r9, [r5, r4, LSL #2]
+        ADD r3, r3, #1
+        B hash_loop
+
+    hash_loop_end:
+        
+    LDMFD sp!, {r0, r1, r2, r10}
 
 fim:
     SWI 0x123456
 
-N:
-    .word 3
+NN:
+    .word 4
 
 quadrado:
-    .word 2,7,6,9,5,1,4,3,8
+    .word 16,3,2,13, 5,10,11,8, 9,6,7,12, 4,15,14,1
+hash:
+    .word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+ehmagico:
+    .word 0
