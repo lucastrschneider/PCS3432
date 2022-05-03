@@ -42,7 +42,7 @@ magicSquare:
 
 @ rows check? r10 = 1
 check_rows:
-    STMFD sp!, {r0, r1, r2, r10}
+    STMFD sp!, {r0, r1, r2}
     MOV r6, r0 
 
     rows_loop:
@@ -74,12 +74,12 @@ check_rows:
         B rows_loop
     
     rows_loop_end:
-        LDMFD sp!, {r0, r1, r2, r10}
+        LDMFD sp!, {r0, r1, r2}
         MOV pc, lr
 
 @ columns check? r10 = 1
 check_columns:
-    STMFD sp!, {r0, r1, r2, r10}
+    STMFD sp!, {r0, r1, r2}
 
     MOV r3, #0 @ contador loop principal
     columns_loop:
@@ -108,12 +108,12 @@ check_columns:
         ADD r3, r3, #1
         B columns_loop
     columns_loop_end:
-        LDMFD sp!, {r0, r1, r2, r10}
+        LDMFD sp!, {r0, r1, r2}
         MOV pc, lr
 
 @ main diagonals check? r0 = 1
 check_main_diagonal:
-    STMFD sp!, {r0, r1, r2, r10}
+    STMFD sp!, {r0, r1, r2}
 
     MOV r3, #0 @ i = 0
     MOV r4, r1 @ endereco de a[i, i]
@@ -139,12 +139,12 @@ check_main_diagonal:
         MOVEQ r10, #1
         
     check_main_diagonal_end:
-        LDMFD sp!, {r0, r1, r2, r10}
+        LDMFD sp!, {r0, r1, r2}
         MOV pc, lr
 
 @ second diagonals check? r0 = 1
 check_second_diagonal:
-    STMFD sp!, {r0, r1, r2, r10}
+    STMFD sp!, {r0, r1, r2}
 
     ADD r5, r1, r0, LSL #2
     SUB r5, r5, #4
@@ -170,11 +170,11 @@ check_second_diagonal:
         MOVNE r10, #0
         MOVEQ r10, #1
         
-    LDMFD sp!, {r0, r1, r2, r10}
+    LDMFD sp!, {r0, r1, r2}
     MOV pc, lr
 
 check_hash:
-    STMFD sp!, {r0, r1, r2, r10}
+    STMFD sp!, {r0, r1, r2}
     
     MOV r9, #1 @ saida
     MOV r3, #0 @ i = 0
@@ -196,9 +196,9 @@ check_hash:
         BLE hash_loop_end
 
         SUB r4, r4, #1
-        LDR r10, [r5, r4, LSL #2]
+        LDR r6, [r5, r4, LSL #2]
 
-        CMP r10, #1
+        CMP r6, #1
         MOVEQ r9, #0
         BEQ hash_loop_end
         
@@ -208,7 +208,7 @@ check_hash:
 
     hash_loop_end:
         
-    LDMFD sp!, {r0, r1, r2, r10}
+    LDMFD sp!, {r0, r1, r2}
 
 fim:
     SWI 0x123456
