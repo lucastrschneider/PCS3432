@@ -213,7 +213,7 @@ check_hash:
 fim:
     SWI 0x123456
 
-NN:
+N:
     .word 4
 
 quadrado:
