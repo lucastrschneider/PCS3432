@@ -176,39 +176,39 @@ check_second_diagonal:
 check_hash:
     STMFD sp!, {r0, r1, r2}
     
-    MOV r9, #1 @ saida
+    MOV r10, #1 @ saida
     MOV r3, #0 @ i = 0
     ADR r5, hash
     MUL r7, r0, r0
 
     hash_loop:
-        CMP r3, r0
+        CMP r3, r7
         BGE hash_loop_end
     
         LDR r4, [r1, r3, LSL #2]
 
         CMP r4, r7
-        MOVGT r9, #0
+        MOVGT r10, #0
         BGT hash_loop_end
 
         CMP r4, #0
-        MOVLE r9, #0
+        MOVLE r10, #0
         BLE hash_loop_end
 
         SUB r4, r4, #1
         LDR r6, [r5, r4, LSL #2]
 
         CMP r6, #1
-        MOVEQ r9, #0
+        MOVEQ r10, #0
         BEQ hash_loop_end
         
-        STR r9, [r5, r4, LSL #2]
+        STR r10, [r5, r4, LSL #2]
         ADD r3, r3, #1
         B hash_loop
 
     hash_loop_end:
-        
-    LDMFD sp!, {r0, r1, r2}
+        LDMFD sp!, {r0, r1, r2}
+        MOV pc, lr
 
 fim:
     SWI 0x123456
