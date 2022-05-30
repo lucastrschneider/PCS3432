@@ -1,0 +1,9 @@
+$1 = 3
+0x829c <dados>:	0x00000005	0x00000000	0xe1a0c00d	0xe92dd830
+0x82ac <atexit+8>:	0xe59f5080	0xe5953000	0xe5931148	0xe3510000
+0x82bc <atexit+24>:	0x02831f53	0xe24cb004
+Breakpoint 2 at 0x8250: file terca-b2-t3-i2-11260850.s, line 31.
+
+Breakpoint 2, fim () at terca-b2-t3-i2-11260850.s:31
+31	    SWI 0x123456
+$2 = -1

@@ -1,0 +1,6 @@
+$1 = 33316
+Breakpoint 2 at 0x8220: file terca-b2-t3-i1-11260850.s, line 11.
+
+Breakpoint 2, fim () at terca-b2-t3-i1-11260850.s:11
+11	    SWI 0x123456
+$2 = 1

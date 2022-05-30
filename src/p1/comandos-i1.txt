@@ -1,0 +1,16 @@
+#layout regs
+target sim
+load
+# geralmente paramos na main...
+b pronto
+r
+set logging on
+# imprime o valor de R0 para ver o endereco de dados
+p $r0
+b fim
+c
+# r1 contem o primeiro elemento de dados = 1
+p $r1
+set logging off
+q
+#+END_EXAMPLE

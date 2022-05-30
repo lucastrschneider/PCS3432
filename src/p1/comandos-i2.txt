@@ -1,0 +1,13 @@
+target sim
+load
+b pronto
+r
+set logging on
+p $r0
+x/10 dados
+b fim
+c
+# R1 contem o indice do primeiro elemento em dados que divide R0
+p $r1
+set logging off
+q
