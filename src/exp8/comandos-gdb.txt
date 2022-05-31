@@ -1,0 +1,42 @@
+#layout regs
+target sim
+load
+# este script deve mostrar entrando 3 vezes em imprime (funcao recursiva) e saindo 3 vezes.
+# dentro do seu programa main (em C) , coloque a label pronto logo no inicio  
+b pronto 
+r
+p $r0
+# Coloque o label inic_imprime logo no comeco da funcao imprime que eh chamada recursivamente.
+b inic_imprime 
+b fim_imprime
+set logging on
+# imprime o valor de R0 para ver se bate com os dois digitos do numero USP. 
+c
+# entrando em impstr pela primeira vez com a string "123\0"
+x/20 $sp
+c
+# entrando em impstr  com a string "23\0"
+x/20 $sp
+c
+# entrando em impstr  com a string "3\0"
+x/20 $sp
+c
+# entrando em impstr  com a string "\0"
+# veja a pilha na quarta instancia - final da string com o zero
+x/20 $sp
+c
+# saindo de impstr  com a string "\0"
+x/20 $sp
+c
+# saindo de impstr  com a string "3\0"
+x/20 $sp
+c 
+# saindo de impstr  com a string "23\0"
+x/20 $sp
+c
+# saindo de impstr  com a string "123\0"
+x/20 $sp
+b fim
+c
+set logging off
+q
