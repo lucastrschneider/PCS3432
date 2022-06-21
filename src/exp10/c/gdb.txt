@@ -1,0 +1,13 @@
+Breakpoint 1 at 0xac: file irq.s, line 66.
+
+Breakpoint 1, vesaida () at irq.s:66
+66	    LDMFD sp!, {r0 - r12, pc}^ @retorna
+   0x1c0 <print_space+40>:	ldr	r3, [r11, #-8]
+
+Breakpoint 1, vesaida () at irq.s:66
+66	    LDMFD sp!, {r0 - r12, pc}^ @retorna
+   0x1c0 <print_space+40>:	ldr	r3, [r11, #-8]
+
+Breakpoint 1, vesaida () at irq.s:66
+66	    LDMFD sp!, {r0 - r12, pc}^ @retorna
+   0x1c0 <print_space+40>:	ldr	r3, [r11, #-8]

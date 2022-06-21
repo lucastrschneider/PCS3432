@@ -1,0 +1,20 @@
+# layout regs
+target remote localhost:1234
+load
+
+set logging on
+
+b vesaida
+c
+
+x/i {int *}($sp+4*13)
+c
+
+x/i {int *}($sp+4*13)
+c
+
+x/i {int *}($sp+4*13)
+
+set logging off
+q
+y
