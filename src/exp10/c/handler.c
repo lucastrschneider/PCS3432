@@ -9,7 +9,7 @@ void print_uart0(const char *s) {
 }
 
 void handler_timer() {
-    // *TIMER0X = 0;
+    *TIMER0X = 0;
     print_uart0("#");
 }
 
