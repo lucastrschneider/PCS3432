@@ -1,0 +1,11 @@
+target remote localhost:1234
+load
+
+b vesp_saida
+c
+
+set logging on
+p $sp
+
+set logging off
+q

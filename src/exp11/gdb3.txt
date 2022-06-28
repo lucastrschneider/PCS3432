@@ -1,0 +1,10 @@
+0x19c <linhaA>:	748	712	32	0
+0x1ac <linhaA+16>:	0	0	0	0
+0x1bc <linhaA+32>:	0	0	0	4860
+0x1cc <linhaA+48>:	0	628	1610613075	4848
+0x1dc <linhaA+64>:	704
+0x1e0 <linhaB>:	0	0	0	0
+0x1f0 <linhaB+16>:	0	0	0	0
+0x200 <linhaB+32>:	0	0	0	0
+0x210 <linhaB+48>:	0	712	1073742163	3592
+0x220 <linhaB+64>:	0
