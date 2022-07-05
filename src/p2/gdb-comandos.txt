@@ -1,0 +1,12 @@
+target remote localhost:1234
+load
+
+b vespsr_saida
+c
+
+set logging on
+x/17 linhaA
+x/17 linhaB
+
+set logging off
+q
